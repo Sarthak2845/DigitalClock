@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+  <title>Digital Clock</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* background: linear-gradient(#422680, #341671, #280659, #660f56, #ae2d68, #f54952); */
+      background: #2e2e44;
+      height: 100vh;
+      margin: 0;
+    }
+    #clock {
+  position: relative;
+  color:#fff;
+  background-color: #212227;
+  font-family: "Lilita One", sans-serif;
+  font-size: 3.5em;
+  text-align: center;
+  font-weight: 900;
+  width:425px;
+  padding:20px 45px;
+  box-shadow: 0 5px 25px rgba(14,21,37,0.8);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#clock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg,#24ff6d,#2f93f1,#ff5e9a);
+  background-size: 200% 200%;
+  z-index: -1; 
+  filter: blur(40px);
+  animation: glowing 10s ease infinite;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+
+
+    .time {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    #hour,
+    #min,
+    #sec {
+      width: 30%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+      margin: 5px;
+    }
+
+    .colon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1em;
+      background: -webkit-linear-gradient(90deg, #baf800, #123ce6);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    #hour {
+      background: -webkit-linear-gradient(180deg, #ee0979, #ff6a00);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    #min {
+      background: -webkit-linear-gradient(90deg, #f70000, #0f0177);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    #sec {
+      background: -webkit-linear-gradient(90deg, #f70000, #0f0177);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .calender {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.3em;
+      font-weight: 900;
+      margin-bottom: 5px;
+      background: -webkit-linear-gradient(90deg,#FF8C00,#FFE000);
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .day,
+    .date,
+    .year {
+      margin-left: 8px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="clock">
+    <div class="time">
+      <div id="hour"></div>
+      <div class="colon">:</div>
+      <div id="min"></div>
+      <div class="colon">:</div>
+      <div id="sec"></div>
+    </div>
+    <div class="calender">
+      <div class="month">
+        JUL
+      </div>
+      <div class="day">WEDNESDAY</div>
+      <div class="date">17</div>
+      <div class="year">2024</div>
+    </div>
+  </div>
+
+
+  <script>
+    function clockStart() {
+      let hourElement = document.getElementById("hour");
+      let minuteElement = document.getElementById("min");
+      let secondElement = document.getElementById("sec");
+
+      function updateClock() {
+        let now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+
+        hourElement.innerHTML = hours < 10 ? "0" + hours : hours;
+        minuteElement.innerHTML = minutes < 10 ? "0" + minutes : minutes;
+        secondElement.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+        var today = new Date();
+        let dy = today.toLocaleString("default", { weekday: "long" });
+        let dt = today.getDate();
+        let mt = today.toLocaleString("default", { month: "short" });
+        let yr = today.getFullYear();
+        document.querySelector(".month").innerHTML = mt;
+        document.querySelector(".day").innerHTML = dy;
+        document.querySelector(".date").innerHTML = dt;
+        document.querySelector(".year").innerHTML = yr;
+
+      }
+
+      updateClock();
+
+      setInterval(updateClock, 1000);
+    }
+
+    clockStart(); 
+  </script>
+</body>
+
+</html>
